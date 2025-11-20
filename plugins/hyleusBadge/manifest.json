@@ -1,0 +1,14 @@
+{
+    "name": "Hyleus Badge",
+    "description": "adds a cute hyleus badge to some specific users",
+    "authors": [
+        {
+            "name": "alfred",
+            "id": "1038466644353232967"
+        }
+    ],
+    "main": "src/index.ts",
+    "vendetta": {
+        "icon": "ic_badge_staff"
+    }
+}

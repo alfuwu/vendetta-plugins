@@ -36,7 +36,7 @@ export const onLoad = () => {
     );
 
     // Profile Banners (bypasses GIF playback option)
-    patches.push(
+    /*patches.push(
         after("default", DisplayBanner, function (args, ret) {
             const ClickWrapperProps = findInReactTree(
                 ret,
@@ -54,7 +54,7 @@ export const onLoad = () => {
                 ClickWrapperProps.onPress();
             }
         })
-    );
+    );*/
 
     // Catch-all
     patches.push(

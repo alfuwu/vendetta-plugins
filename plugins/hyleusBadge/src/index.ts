@@ -29,8 +29,8 @@ const badgeCache = {
     },
     label: "part of hyleus"
   },
-  "hyleus-badge-fringe": {
-    id: "hyleus-badge-fringe",
+  "hyleus-badge-servant": {
+    id: "hyleus-badge-servant",
     source: {
       uri: "https://alfuwu.github.io/Images/new%20hyleus%20hc%20shadowed.png"
     },
@@ -38,7 +38,7 @@ const badgeCache = {
   }
 };
 
-let unpatch: () => void;
+let unpatch: Function;
 export default {
   onLoad: () => {
     populateCache();
@@ -64,7 +64,14 @@ export default {
     })
 
     unpatch = after("default", badgeModule, ([user], result) => {
-      if (user === null) return;
+      if (user === null) {
+        console.log("[hyleus] user is null, returning");
+        return;
+      }
+      console.log("[hyleus] trying to add badge...");
+      console.log("[hyleus] current cache: " + JSON.stringify(Object.fromEntries(cache)));
+      console.log(`[hyleus] cache has ${user.userId}: ${cache.has(user.userId)}`);
+      console.log("[hyleus]", user);
 
       const pushBadges = (badge) => {
         result.push(badge);
@@ -74,7 +81,7 @@ export default {
         const num = cache.get(user.userId);
         const desc = num < 0 ? "core of hyleus" : num == 0 ? "pillar of hyleus" : num >= 3 ? "servant of hyleus" : "part of hyleus";
         console.log(`Adding Hyleus badge to ${user.username}`);
-        const badgeId = `hyleus-badge-${num < 0 ? "core" : num == 1 ? "pillar" : num >= 3 ? "fringe" : "part"}`;
+        const badgeId = `hyleus-badge-${num < 0 ? "core" : num == 0 ? "pillar" : num >= 3 ? "servant" : "normal"}`;
         pushBadges({
           id: badgeId,
           description: desc,

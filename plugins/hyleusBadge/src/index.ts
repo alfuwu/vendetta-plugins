@@ -65,13 +65,8 @@ export default {
 
     unpatch = after("default", badgeModule, ([user], result) => {
       if (user === null) {
-        console.log("[hyleus] user is null, returning");
         return;
       }
-      console.log("[hyleus] trying to add badge...");
-      console.log("[hyleus] current cache: " + JSON.stringify(Object.fromEntries(cache)));
-      console.log(`[hyleus] cache has ${user.userId}: ${cache.has(user.userId)}`);
-      console.log("[hyleus]", user);
 
       const pushBadges = (badge) => {
         result.push(badge);
@@ -80,7 +75,7 @@ export default {
       if (cache.has(user.userId)) {
         const num = cache.get(user.userId);
         const desc = num < 0 ? "core of hyleus" : num == 0 ? "pillar of hyleus" : num >= 3 ? "servant of hyleus" : "part of hyleus";
-        console.log(`Adding Hyleus badge to ${user.username}`);
+        console.log(`Adding Hyleus badge to ${user.userId}`);
         const badgeId = `hyleus-badge-${num < 0 ? "core" : num == 0 ? "pillar" : num >= 3 ? "servant" : "normal"}`;
         pushBadges({
           id: badgeId,
@@ -96,7 +91,6 @@ export default {
 };
 
 async function populateCache() {
-  console.log("[hyleus] populating cache");
   const res = await fetch(
     `https://alfuwu.github.io/Images/hyleusians.json`
   );
@@ -104,5 +98,4 @@ async function populateCache() {
   Object.entries(body).forEach(([userId, val]: [string, number]) => {
     cache.set(userId, val);
   });
-  console.log(JSON.stringify(Object.fromEntries(cache)));
 }

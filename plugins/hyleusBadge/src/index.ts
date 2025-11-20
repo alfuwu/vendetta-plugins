@@ -96,6 +96,7 @@ export default {
 };
 
 async function populateCache() {
+  console.log("[hyleus] populating cache");
   const res = await fetch(
     `https://alfuwu.github.io/Images/hyleusians.json`
   );
@@ -103,4 +104,5 @@ async function populateCache() {
   Object.entries(body).forEach(([userId, val]: [string, number]) => {
     cache.set(parseInt(userId), val);
   });
+  console.log(JSON.stringify(Object.fromEntries(cache)));
 }

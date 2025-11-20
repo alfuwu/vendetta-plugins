@@ -44,7 +44,7 @@ export default {
     populateCache();
 
     bunny.onJsxCreate("ProfileBadge", (component, ret) => {
-      if (ret.props.id?.startswith("hyleus-")) {
+      if (ret.props.id?.startsWith("hyleus-")) {
         const badgePropsCache = badgeCache[ret.props.id];
         if (badgePropsCache) {
           ret.props.source = badgePropsCache.source;

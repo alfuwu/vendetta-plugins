@@ -3,7 +3,7 @@ import { after } from "@vendetta/patcher";
 
 const bunny = window.bunny.api.react.jsx
 
-const cache = new Map<number, number>();
+const cache = new Map<string, number>();
 const REFRESH_INTERVAL = 1000 * 60 * 30;
 
 const badgeModule = findByName("useBadges", false);
@@ -102,7 +102,7 @@ async function populateCache() {
   );
   const body = await res.json();
   Object.entries(body).forEach(([userId, val]: [string, number]) => {
-    cache.set(parseInt(userId), val);
+    cache.set(userId, val);
   });
   console.log(JSON.stringify(Object.fromEntries(cache)));
 }
